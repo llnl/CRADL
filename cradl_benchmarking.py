@@ -93,7 +93,7 @@ hohlraum_nodes  = ale_data['hohlraum_nodes']
 
 #Load stored model using JIT to capture full model architecture
 start_model_load_transfer = time.time()
-net = torch.jit.load("./Conv1Dv2.pth")
+net = torch.jit.load("./Conv1Dv2.pt")
 time_model_load_transfer = time.time() - start_model_load_transfer
 
 if __name__ == '__main__':
