@@ -18,6 +18,7 @@ First allocate an interactive GPU compute node on your HPC platform or operate l
 CRADL allows for a number of run configurations, most of which have default settings. The minimum required by the user is to point to their directory where inference data is stored.
 
 ```
+source .venv/bin/activate
 python cradl_benchmarking.py --inference_dir ./data
 ```
 ## Input Options

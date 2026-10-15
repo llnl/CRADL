@@ -1,8 +1,48 @@
-#!/bin/bash
-pip install pandas
-pip install torch
-pip install torchvision
-pip install apex
-pip install GPUtil
-pip install matplotlib
-pip install mpi4py
+#!/usr/bin/env bash
+
+set -e
+
+PYTHON_VERSION="3.8" # Format: <major>.<minor>
+VENV_DIR=".venv"
+
+if ! command -v python$PYTHON_VERSION >/dev/null 2>&1; then
+    echo "Error: Python ${PYTHON_VERSION} is not installed or not in PATH."
+    echo ""
+    echo "Please install Python ${PYTHON_VERSION} using pyenv:"
+    echo "  pyenv install ${PYTHON_VERSION}"
+    echo "  pyenv shell ${PYTHON_VERSION}"
+    echo ""
+    echo "Then run this script again."
+    exit 1
+fi
+
+PYTHON="$(command -v "python$VERSION")"
+VERSION="$("$PYTHON" --version 2>&1)"
+
+if [[ "$VERSION" != "Python ${PYTHON_VERSION}."* ]]; then
+    echo "Error: Expected Python ${PYTHON_VERSION}, but found: ${VERSION}"
+    exit 1
+fi
+
+echo "Using $VERSION"
+
+if [[ ! -d "$VENV_DIR" ]]; then
+    echo "Creating virtual environment in ${VENV_DIR}..."
+    "$PYTHON" -m venv "$VENV_DIR"
+else
+    echo "Virtual environment ${VENV_DIR} already exists."
+fi
+
+echo "Activating virtual environment..."
+# shellcheck source=/dev/null
+source "${VENV_DIR}/bin/activate"
+
+echo ""
+echo "Virtual environment is ready!"
+echo "Python: $(python --version)"
+echo "Location: $(which python)"
+
+pip install -r requirements.txt
+
+echo ""
+echo "Done!"
